@@ -141,6 +141,15 @@ public class MainActivity extends AppCompatActivity {
                 .build());
 
 
+        if(ContextCompat.checkSelfPermission(MainActivity.this,
+                READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            RequestPermission();
+        }
+
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,14 +157,12 @@ public class MainActivity extends AppCompatActivity {
 
             public void onClick(View view) {
 
-                if(ContextCompat.checkSelfPermission(MainActivity.this,
-                        READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this,"Permission Granted",Toast.LENGTH_SHORT).show();
 
 
 
                 try {
                     pdffile();
+
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -167,61 +174,18 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                }
-                else {
-                    RequestPermission();
-                }
 
 
-            }
+                }
+
         });
 
 
     }
 
-    private void RequestPermission() {
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, READ_EXTERNAL_STORAGE)) {
-
-            new AlertDialog.Builder(this).setTitle("Permission Needed")
-                    .setMessage("Permission Needed for this application.").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(MainActivity.this, new String[]{READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-                        }
-                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    }).create().show();
-
-        } else {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{READ_EXTERNAL_STORAGE}, 6578);
-        };
-
-
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == 6578) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this,"permission granted", Toast.LENGTH_SHORT).show();
-
-        }else{
-            Toast.makeText(this,"permission not granted", Toast.LENGTH_SHORT).show();}
-        }
-    }
 
     @SuppressLint("ResourceType")
     private void pdffile() throws IOException {
-
-
-
         String pdfPath= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
 
         File file=new File(pdfPath,"MyCV.pdf");
@@ -419,25 +383,44 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    private void RequestPermission() {
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, READ_EXTERNAL_STORAGE)) {
+
+            new AlertDialog.Builder(this).setTitle("Permission Needed")
+                    .setMessage("Permission Needed for this application.").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(MainActivity.this, new String[]{READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                        }
+                    }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).create().show();
+
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{READ_EXTERNAL_STORAGE}, 6578);
+        };
+
+
+    }
+
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 2296) {
-            if (SDK_INT >= Build.VERSION_CODES.R) {
-                if (Environment.isExternalStorageManager()) {
-                    // perform action when allow permission success
-                    try {
-                        pdffile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(this, "Allow permission for storage access!", Toast.LENGTH_SHORT).show();
-                }
-            }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 6578) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this,"permission granted", Toast.LENGTH_SHORT).show();
+
+        }else{
+            Toast.makeText(this,"permission not granted", Toast.LENGTH_SHORT).show();}
         }
     }
+
 
 
 
