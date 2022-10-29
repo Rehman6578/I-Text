@@ -92,10 +92,61 @@ public class CV_Screen extends AppCompatActivity {
 
         save = findViewById(R.id.savebtn);
 
+        Init();
+
+        save=findViewById(R.id.savebtn);
+
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()
+                .penaltyLog()
+                .build());
+
+
+        if(ContextCompat.checkSelfPermission(CV_Screen.this,
+                READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(CV_Screen.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            RequestPermission();
+        }
+
+
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+
+            public void onClick(View view) {
+
+                try {
+                    pdffile();
+
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "onClick: +++++++++++++++++++++++++++++++++"+e.getMessage().toString());
+
+                } catch (MalformedURLException e) {
+
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+        });
 
 
 
 
+
+    }
+
+    private void Init() {
         username="Khan Rehman";
         designation="Mason";
         email="khan@gmail.com";
@@ -184,59 +235,6 @@ public class CV_Screen extends AppCompatActivity {
         skills.setBorder(Border.NO_BORDER);
         skills.setMarginLeft(20);
         skills.setTextAlignment(TextAlignment.LEFT);
-
-
-
-        save=findViewById(R.id.savebtn);
-
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads()
-                .detectDiskWrites()
-                .detectNetwork()
-                .penaltyLog()
-                .build());
-
-
-        if(ContextCompat.checkSelfPermission(CV_Screen.this,
-                READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(CV_Screen.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            RequestPermission();
-        }
-
-
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-
-
-            public void onClick(View view) {
-
-                try {
-                    pdffile();
-
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    Log.d(TAG, "onClick: +++++++++++++++++++++++++++++++++"+e.getMessage().toString());
-
-                } catch (MalformedURLException e) {
-
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-
-        });
-
-
-
-
-
     }
 
     @SuppressLint("ResourceType")
