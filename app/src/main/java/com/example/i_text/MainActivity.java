@@ -4,6 +4,7 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.content.ContentValues.TAG;
 import static android.os.Build.VERSION.SDK_INT;
+import static com.example.i_text.R.drawable.designation;
 import static com.example.i_text.R.drawable.father;
 import static com.example.i_text.R.drawable.phone;
 import static com.itextpdf.kernel.colors.ColorConstants.BLACK;
@@ -13,6 +14,8 @@ import static com.itextpdf.kernel.pdf.PdfName.Circle;
 import static com.itextpdf.kernel.pdf.PdfName.ColorSpace;
 import static com.itextpdf.kernel.pdf.PdfName.Colors;
 import static com.itextpdf.kernel.pdf.PdfName.DefaultCMYK;
+import static com.itextpdf.kernel.pdf.PdfName.PageLayout;
+import static com.itextpdf.kernel.pdf.PdfName.PageMode;
 import static com.itextpdf.kernel.pdf.PdfName.Resources;
 import static com.itextpdf.kernel.pdf.PdfName.Stream;
 import static com.itextpdf.layout.property.HorizontalAlignment.CENTER;
@@ -21,6 +24,7 @@ import static com.itextpdf.layout.property.HorizontalAlignment.RIGHT;
 import static com.sun.xml.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 
 import static org.abego.treelayout.Configuration.Location.Left;
+import static org.jdom2.filter.Filters.document;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,6 +63,7 @@ import android.sax.Element;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.dx.util.ListIntSet;
@@ -74,6 +79,7 @@ import com.itextpdf.kernel.colors.PatternColor;
 import com.itextpdf.kernel.colors.WebColors;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfName;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
@@ -122,13 +128,46 @@ public class MainActivity extends AppCompatActivity {
 
     int PERMISSION_REQUEST_CODE=2296;
 
+    List languages;
+    List skills;
+    String username;
+    String designation;
+    String email;
+    String phoneNo;
+    String address;
+
+    String profile;
+    String experiencetitle;
+    String experiencedescription;
+    String education;
 
 
 
-    @SuppressLint("MissingInflatedId")
+
+    @SuppressLint({"MissingInflatedId", "SuspiciousIndentation"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        username="Khan Rehman";
+        designation="Mason";
+        email="khan@gmail.com";
+        phoneNo="+97894759837249";
+        address="Doha Qatar";
+        profile="Builds walls, fences, walkways, roads, and other structures using bricks," +
+                " stone, concrete blocks, or marble. Carves out and builds structures " +
+                "and surfaces with bricks or concrete blocks." +
+                " Places brick or concrete blocks on mortar bed. Cuts or saws bricks to" +
+                " fit around windows and doors";
+
+
+        experiencetitle="Senior Software Engineer and Systems Engineer";
+        experiencedescription="Computer Engineer and Systems Places " +
+                "brick or concrete blocks on mortar bed." +
+                " Cuts or saws bricks ";
+
 
 
         save=findViewById(R.id.savebtn);
@@ -139,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 .detectNetwork()
                 .penaltyLog()
                 .build());
+
 
 
         if(ContextCompat.checkSelfPermission(MainActivity.this,
@@ -156,9 +196,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             public void onClick(View view) {
-
-
-
 
                 try {
                     pdffile();
@@ -188,9 +225,10 @@ public class MainActivity extends AppCompatActivity {
     private void pdffile() throws IOException {
         String pdfPath= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
 
-        File file=new File(pdfPath,"MyCV.pdf");
+        File file=new File(pdfPath,"CV.pdf");
 
         OutputStream outputStream=new FileOutputStream(file);
+
 
         PdfWriter pdfWriter=new PdfWriter(file);
         PdfDocument pdfDocument=new PdfDocument(pdfWriter);
@@ -206,8 +244,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Paragraph paragraph=new Paragraph("Laura Parker").setFontSize(40).setBold().setFontColor(BLACK).setHorizontalAlignment(LEFT);
-        Paragraph paragraph2=new Paragraph("UI and UX Designer").setFontSize(20).setMarginTop(-15).setFontColor(BLACK).setHorizontalAlignment(LEFT);
+        Paragraph paragraph=new Paragraph(username).setFontSize(40).setBold().setFontColor(BLACK).setHorizontalAlignment(LEFT);
+        Paragraph paragraph2=new Paragraph(designation).setFontSize(20).setMarginTop(-15).setFontColor(BLACK).setHorizontalAlignment(LEFT);
 
 
         float[] width={50 ,200};
@@ -215,13 +253,13 @@ public class MainActivity extends AppCompatActivity {
         Table table3= new Table(width);
         table3.setMarginTop(30);
         table3.addCell( new Cell().add(image3).setBorder(Border.NO_BORDER));
-        table3.addCell( new Cell().add(new Paragraph("urname@gmail.com")).setBorder(Border.NO_BORDER));
+        table3.addCell( new Cell().add(new Paragraph(email)).setBorder(Border.NO_BORDER));
 
         table3.addCell( new Cell().add(image5).setBorder(Border.NO_BORDER));
-        table3.addCell( new Cell().add(new Paragraph("+92 084230480298")).setBorder(Border.NO_BORDER));
+        table3.addCell( new Cell().add(new Paragraph(phoneNo)).setBorder(Border.NO_BORDER));
 
         table3.addCell( new Cell().add(image4).setBorder(Border.NO_BORDER));
-        table3.addCell( new Cell().add(new Paragraph("Address here , Zip-0123")).setBorder(Border.NO_BORDER));
+        table3.addCell( new Cell().add(new Paragraph(address)).setBorder(Border.NO_BORDER));
 
 
         Log.d(TAG, "Table ///////////////////: "+table);
@@ -231,15 +269,11 @@ public class MainActivity extends AppCompatActivity {
 
         Paragraph paragraph4=new Paragraph("Profile".toUpperCase(Locale.ROOT)).setBold().setFontSize(20).setFontColor(ColorConstants.BLUE).setMarginTop(50);
 
-        Paragraph paragraph5=new Paragraph("Lorem Ipsum is simply dummy text of the printing" +
-                " and typesetting industry. Lorem Ipsum has been the" +
-                " industry's standard dummy text ever since the 1500s, when an" +
-                " unknown printer took a galley of type and scrambled it to make" +
-                " a type specimen book.").setFontColor(BLACK).setMarginRight(200).setMarginTop(10);
+        Paragraph paragraph5=new Paragraph(profile).setFontColor(BLACK).setMarginRight(200).setMarginTop(10);
 
 
         Paragraph paragraph6=new Paragraph("Experience".toUpperCase(Locale.ROOT)).setFontSize(20).setFontColor(ColorConstants.BLUE).setMarginTop(30).setBold();
-        Paragraph paragraph7= new Paragraph("Senior UX Designer - Present \n Company Name/ Location").setFontSize(12).setFontColor(BLACK).setBold().setMarginTop(20);
+        Paragraph paragraph7= new Paragraph(experiencetitle).setFontSize(12).setFontColor(BLACK).setBold().setMarginTop(20);
         Paragraph paragraph8= new Paragraph("Lorem Ipsum is simply dummy text of the printing\n" +
                 " and typesetting industry. Lorem Ipsum has been the\n" +
                 " industry's standard").setFontColor(BLACK).setMarginRight(200).setMarginTop(10);
@@ -275,13 +309,13 @@ public class MainActivity extends AppCompatActivity {
         paragraph12.setFixedPosition(1,420,580,200);
 
         Paragraph paragraph15=new Paragraph("2014-2016");
-        paragraph15.setFixedPosition(1,420,550,200  ).setMarginTop(-15);
+        paragraph15.setFixedPosition(1,420,550,200).setMarginTop(-15);
 
         Paragraph paragraph16=new Paragraph("Degree / Major Name").setFontColor(BLACK).setBold();
-        paragraph16.setFixedPosition(1,420,530,200  );
+        paragraph16.setFixedPosition(1,420,530,200);
 
         Paragraph paragraph17=new Paragraph("University name here");
-        paragraph17.setFixedPosition(1,420,510,200  );
+        paragraph17.setFixedPosition(1,420,510,200);
 
 
         Paragraph paragraph18=new Paragraph("2014-2016");
@@ -296,27 +330,39 @@ public class MainActivity extends AppCompatActivity {
         Paragraph paragraph21=new Paragraph("Language ".toUpperCase(Locale.ROOT)).setBold().setFontSize(20).setFontColor(ColorConstants.BLUE).setMarginTop(50);
         paragraph21.setFixedPosition(1,420,330,200);
 
-        List list= new List();
-        list.add("English").setBold().setFontColor(BLACK);
-        list.add("French").setBold().setFontColor(BLACK);
-        list.add("Spanish").setBold().setFontColor(BLACK);
-
-        list.setFixedPosition(1,420,250,200);
-
-
 
         Paragraph paragraph22=new Paragraph("Skills".toUpperCase(Locale.ROOT)).setBold().setFontSize(20).setFontColor(ColorConstants.BLUE);
 
         paragraph22.setFixedPosition(1,420,170,200);
 
-        List list1=new List();
-        list1.add("Photoshop").setBold().setFontColor(BLACK);
-        list1.add("Illustrator").setBold().setFontColor(BLACK);
-        list1.add("InDesign").setBold().setFontColor(BLACK);
-        list1.add("After Effect").setBold().setFontColor(BLACK);
-        list1.add("Premiar pro").setBold().setFontColor(BLACK);
 
-        list1.setFixedPosition(1,420,50,200);
+        languages= new List();
+        languages.add("english");
+        languages.add("french");
+        languages.add("spanish");
+        languages.add("chinese");
+        languages.add("chinese_simplified");
+        languages.add("chinese_traditional");
+        languages.add("korean");
+        languages.add("japanese");
+        languages.setFontColor(BLACK).setBold();
+        languages.setFixedPosition(1,420,250,200);
+
+
+
+        skills=new List();
+
+        skills.add("java");
+        skills.add("android");
+        skills.add("ios");
+        skills.add("windows");
+        skills.add("linux");
+        skills.add("mac");
+        skills.add("windows_phone");
+        skills.add("android_phone");
+
+        skills.setFontColor(BLACK).setBold();
+        skills.setFixedPosition(1,420,50,200);
 
 
 
@@ -360,19 +406,12 @@ public class MainActivity extends AppCompatActivity {
         document.add(paragraph20);
 
         document.add(paragraph21);
-        document.add(list);
+        document.add(languages);
         document.add(paragraph22);
-        document.add(list1);
-
-
-
-
+        document.add(skills);
 
         document.add(image);
         document.add(paragraph12);
-
-
-
 
 //        document.add(image5);
         document.close();
@@ -380,7 +419,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this,"File Saved",Toast.LENGTH_LONG).show();
 
     }
-
 
 
     private void RequestPermission() {
@@ -500,32 +538,6 @@ public class MainActivity extends AppCompatActivity {
         image5.setWidth(15);
         image5.setHeight(15);
 
-
-    }
-
-
-
-
-
-
-
-    private void table(){
-        float [] coloumwidth2={150,250,200,150};
-
-        Table table1= new Table(coloumwidth2);
-
-        table1.addCell(new Cell().add(new Paragraph("Name : ").setBold().setFontSize(12).setFontColor(ColorConstants.RED).setBorder(Border.NO_BORDER)));
-        table1.addCell(new Cell().add(new Paragraph("ABDURREHMAN").setFontSize(12).setFontColor(ColorConstants.BLUE).setBorder(Border.NO_BORDER)));
-
-
-        table1.addCell(new Cell().add(new Paragraph("F/Name:").setBold().setFontSize(12).setFontColor(ColorConstants.RED).setBorder(Border.NO_BORDER)).add(image.setHorizontalAlignment(RIGHT).setMarginTop(-15).setHeight(20).setWidth(20)));
-        table1.addCell(new Cell().add(new Paragraph("Khan Rehman").setFontSize(12).setFontColor(ColorConstants.BLUE).setBorder(Border.NO_BORDER)));
-
-        table1.addCell(new Cell().add(new Paragraph("Designation : ").setBold().setFontSize(12).setFontColor(ColorConstants.RED).setBorder(Border.NO_BORDER)));
-        table1.addCell(new Cell().add(new Paragraph("Software Engineer").setFontSize(12).setFontColor(ColorConstants.BLUE).setBorder(Border.NO_BORDER)));
-
-        table1.addCell(new Cell().add(new Paragraph("Phone No : ").setBold().setFontSize(12).setFontColor(ColorConstants.RED).setBorder(Border.NO_BORDER)));
-        table1.addCell(new Cell().add(new Paragraph("03039290740").setFontSize(12).setFontColor(ColorConstants.BLUE).setBorder(Border.NO_BORDER)));
 
     }
 
