@@ -165,6 +165,7 @@ public class CV1 extends AppCompatActivity {
 
         Table aboutus= new Table(width1);
         aboutus.setMarginLeft(10);
+        aboutus.setMarginTop(30);
         aboutus.addCell( new Cell().add(User).setBorder(Border.NO_BORDER));
         aboutus.addCell( new Cell().add(new Paragraph("About Me").setMarginTop(-5)
                 .setTextAlignment(TextAlignment.LEFT)).setBorder(Border.NO_BORDER).setFontSize(20).setFontColor(BLUE).setFont(font));
@@ -187,7 +188,7 @@ public class CV1 extends AppCompatActivity {
         table1.setBackgroundColor(new DeviceRgb(173,216,230));
 
 
-        table1.addCell(new Cell(4,1).add(image).setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell(4,1).add(image).setBorder(Border.NO_BORDER).setPaddingTop(20));
         table1.addCell(new Cell().add(aboutus).setBorder(Border.NO_BORDER));
         table1.addCell(new Cell().add(new Paragraph(lorem).setFontSize(12).setTextAlignment(TextAlignment.JUSTIFIED)
                 .setPadding(10)).setBorder(Border.NO_BORDER).setPaddingLeft(40));
@@ -200,7 +201,7 @@ public class CV1 extends AppCompatActivity {
         Table table2= new Table(width);
         table2.setMarginLeft(10);
         table2.setMarginTop(10);
-        table2.setMarginBottom(30);
+        table2.setMarginBottom(20);
         table2.addCell( new Cell().add(Mail).setBorder(Border.NO_BORDER));
         table2.addCell( new Cell().add(new Paragraph(email).setPaddingLeft(10).setTextAlignment(TextAlignment.LEFT)).setBorder(Border.NO_BORDER));
 
@@ -238,17 +239,36 @@ public class CV1 extends AppCompatActivity {
         float [] tab3={400};
         Table table3= new Table(tab3);
         table3.setMarginLeft(10);
+        table3.setFixedPosition(230,650,350);
 
-        table3.addCell(new Cell().add(new Paragraph("Areata").setFontSize(45).setFontColor(BLUE)
-                .setBorder(Border.NO_BORDER))
-                .add(new Paragraph("Base").setFontSize(45).setFont(font).setFontColor(BLACK).setMarginTop(-25)
-                        .setTextAlignment(TextAlignment.CENTER)
-                        .setBorder(Border.NO_BORDER)).setBorder(Border.NO_BORDER));
 
-        table3.addCell(new Cell().add(new  Paragraph("UI Designer")).setBorder(Border.NO_BORDER)
-                .setFontSize(20).setMarginTop(-10));
 
-        table3.setFixedPosition(230,650,400);
+        float[] name={150,150};
+
+        Table Name= new Table(name);
+
+        Name.addCell(new Cell().add(new Paragraph("Areata").setFontSize(35).setBold().setFontColor(BLUE)
+                        .setTextAlignment(TextAlignment.LEFT))
+                .setBorder(Border.NO_BORDER));
+        Name.addCell(new Cell().add(new Paragraph("Base").setMarginLeft(-25).setFontSize(35)
+                ).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT));
+
+        Name.addCell(new Cell().add(new Paragraph("UI Designer").setBold()
+                .setMarginTop(-15).setFontSize(20)).setBorder(Border.NO_BORDER));
+
+
+
+
+        table3.addCell(new Cell().add(Name).setBorder(Border.NO_BORDER));
+
+
+        table3.addCell(new Cell().add(new Paragraph("Experience").setBold()
+                .setFontSize(20).setMarginTop(25)).setBorder(Border.NO_BORDER));
+
+
+
+
+
 
         //Drawing canvas
 
