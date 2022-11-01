@@ -241,7 +241,7 @@ public class CV1 extends AppCompatActivity {
 
         table3.addCell(new Cell().add(new Paragraph("Areata").setFontSize(45).setFontColor(BLUE)
                 .setBorder(Border.NO_BORDER))
-                .add(new Paragraph("Base").setFontSize(45).setFontColor(BLACK).setMarginTop(-15)
+                .add(new Paragraph("Base").setFontSize(45).setFont(font).setFontColor(BLACK).setMarginTop(-25)
                         .setTextAlignment(TextAlignment.CENTER)
                         .setBorder(Border.NO_BORDER)).setBorder(Border.NO_BORDER));
 
