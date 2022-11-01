@@ -181,6 +181,7 @@ public class CV1 extends AppCompatActivity {
 
 
 
+        //first table
 
         float coloumwidth[]= {200};
         Table table1= new Table(coloumwidth);
@@ -196,6 +197,8 @@ public class CV1 extends AppCompatActivity {
                 .setFontSize(20).setFontColor(BLUE).setFont(font)
                 .setBold().setTextAlignment(TextAlignment.LEFT)).setBorder(Border.NO_BORDER));
 
+
+        //icons table
         float[] width={50 ,200};
 
         Table table2= new Table(width);
@@ -210,6 +213,8 @@ public class CV1 extends AppCompatActivity {
 
         table2.addCell( new Cell().add(Home).setBorder(Border.NO_BORDER));
         table2.addCell( new Cell().add(new Paragraph(address).setPaddingLeft(10).setTextAlignment(TextAlignment.LEFT)).setBorder(Border.NO_BORDER));
+
+        // First table / main table
 
         table1.addCell(new Cell().add(table2).setBorder(Border.NO_BORDER));
 
@@ -236,13 +241,17 @@ public class CV1 extends AppCompatActivity {
                 .setFontSize(12).setMarginTop(-10).setPaddingLeft(60)).setBorder(Border.NO_BORDER));
 
 
+        //second table
+
         float [] tab3={400};
         Table table3= new Table(tab3);
-        table3.setMarginLeft(10);
-        table3.setFixedPosition(230,650,350);
+        table3.setHeight(pdfDocument.getDefaultPageSize().getHeight());
+        table3.setMarginLeft(230);
+        table3.setMarginTop(-850);
 
 
 
+        //name table
         float[] name={150,150};
 
         Table Name= new Table(name);
@@ -256,14 +265,39 @@ public class CV1 extends AppCompatActivity {
         Name.addCell(new Cell().add(new Paragraph("UI Designer").setBold()
                 .setMarginTop(-15).setFontSize(20)).setBorder(Border.NO_BORDER));
 
-
-
-
         table3.addCell(new Cell().add(Name).setBorder(Border.NO_BORDER));
 
 
         table3.addCell(new Cell().add(new Paragraph("Experience").setBold()
                 .setFontSize(20).setMarginTop(25)).setBorder(Border.NO_BORDER));
+
+        table3.addCell(new Cell().add(new Paragraph("Senior UX Designer - Present").setFontSize(12).setMarginTop(-20)
+                .setMarginTop(20).setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
+
+        table3.addCell(new Cell().add(new Paragraph("Company Name / Location").setFontSize(12).setMarginTop(-20)
+                ).setBorder(Border.NO_BORDER));
+
+
+        table3.addCell(new Cell().add(new Paragraph(lorem).setFontSize(12).setMarginTop(-20)
+        ).setBorder(Border.NO_BORDER));
+
+
+
+        table3.addCell(new Cell().add(new Paragraph("Creative User Interface Designer - 2016").setFontSize(12)
+                .setMarginTop(-20).setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
+
+        table3.addCell(new Cell().add(new Paragraph("Company Name / California USA").setFontSize(12).setMarginTop(-20)
+        ).setBorder(Border.NO_BORDER));
+
+
+        table3.addCell(new Cell().add(new Paragraph(lorem).setFontSize(12).setMarginTop(-20)
+        ).setBorder(Border.NO_BORDER));
+
+        table3.addCell(new Cell().add(new Paragraph("Profissional Skills").setBold()
+                .setFontSize(20).setMarginTop(-25)).setBorder(Border.NO_BORDER));
+
+
+
 
 
 
