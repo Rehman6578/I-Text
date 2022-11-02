@@ -7,6 +7,7 @@ import static com.example.i_text.R.drawable.book;
 import static com.example.i_text.R.drawable.book_;
 import static com.example.i_text.R.drawable.person;
 import static com.example.i_text.R.drawable.phone;
+import static com.example.i_text.R.drawable.star;
 import static com.example.i_text.R.drawable.user;
 import static com.example.i_text.R.drawable.user2;
 import static com.example.i_text.R.drawable.user_;
@@ -31,9 +32,14 @@ import android.os.StrictMode;
 import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.tools.r8.code.S;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.slider.Slider;
 import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -50,6 +56,7 @@ import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
@@ -68,10 +75,15 @@ public class CV1 extends AppCompatActivity {
 
 
     MaterialButton save;
-    Image image,Mail,Phone,Home,User,Book;
+    Image image,Mail,Phone,Home,User,Book,Star,rate;
     int PERMISSION_REQUEST_CODE=2296;
-    String lorem;
+    String lorem,lorem1;
     String email, phone,address;
+
+    Table skills;
+
+    RatingBar photoshop,illustrator,indesign,Aftereffect,sketch;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +91,12 @@ public class CV1 extends AppCompatActivity {
         setContentView(R.layout.activity_cv1);
 
         save = findViewById(R.id.savebtn);
-        lorem="Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
-                " Lorem Ipsum has been the industry's .";
+        lorem="Lorem Ipsum is simply dummy text of the printing and typesetting industry " +
+                "Lorem Ipsum has been the industry's";
+
+        lorem1="Lorem Ipsum is simply dummy text of the printing and typesetting industry " +
+                "Lorem Ipsum has been the industry's" +
+                " the printing and typesetting industry Lorem Ipsum has been the industry's.";
 
         email="Rehman@gmail.com";
         phone="923070578290";
@@ -161,50 +177,64 @@ public class CV1 extends AppCompatActivity {
         phoneicon();
         usericon();
         bookicon();
+        Ratings();
+
         float[] width1={50 ,150};
 
         Table aboutus= new Table(width1);
         aboutus.setMarginLeft(10);
-        aboutus.setMarginTop(30);
+        aboutus.setMarginTop(10);
         aboutus.addCell( new Cell().add(User).setBorder(Border.NO_BORDER));
         aboutus.addCell( new Cell().add(new Paragraph("About Me").setMarginTop(-5)
-                .setTextAlignment(TextAlignment.LEFT)).setBorder(Border.NO_BORDER).setFontSize(20).setFontColor(BLUE).setFont(font));
+                .setTextAlignment(TextAlignment.LEFT)).setFont(font).setBorder(Border.NO_BORDER).setFontSize(20).setFontColor(BLUE).setFont(font));
 
         float[] width2={50 ,150};
 
         Table Education= new Table(width2);
         Education.setMarginLeft(10);
+        Education.setMarginTop(20);
         Education.addCell( new Cell().add(Book).setBorder(Border.NO_BORDER));
         Education.addCell( new Cell().add(new Paragraph("Education").setMarginTop(-5)
                 .setTextAlignment(TextAlignment.LEFT)).setBorder(Border.NO_BORDER).setFontSize(20).setFontColor(BLUE).setFont(font));
 
 
+        //name table
+        float[] name={150,150};
+
+        Table Name= new Table(name);
+        Name.addCell(new Cell().add(new Paragraph("Areata").setFontSize(35).setBold().setFontColor(BLUE)
+                        .setTextAlignment(TextAlignment.LEFT))
+                .setBorder(Border.NO_BORDER));
+        Name.addCell(new Cell().add(new Paragraph("Base").setMarginLeft(-25).setFontSize(35)
+        ).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT));
+
+        Name.addCell(new Cell().add(new Paragraph("UI Designer").setBold()
+                .setMarginTop(-15).setFontSize(20)).setBorder(Border.NO_BORDER));
+
 
 
         //first table
 
-        float coloumwidth[]= {200};
+        float coloumwidth[]= {200,350};
         Table table1= new Table(coloumwidth);
-        table1.setHeight(pdfDocument.getDefaultPageSize().getHeight());
-        table1.setBackgroundColor(new DeviceRgb(173,216,230));
+//        table1.setBackgroundColor(new DeviceRgb(173,216,230));
 
 
-        table1.addCell(new Cell(4,1).add(image).setBorder(Border.NO_BORDER).setPaddingTop(20));
+        table1.addCell(new Cell().add(image).setBorder(Border.NO_BORDER).setPaddingTop(20));
+        table1.addCell(new Cell().add(Name).setPaddingTop(30).setBorder(Border.NO_BORDER));
+
         table1.addCell(new Cell().add(aboutus).setBorder(Border.NO_BORDER));
-        table1.addCell(new Cell().add(new Paragraph(lorem).setFontSize(12).setTextAlignment(TextAlignment.JUSTIFIED)
-                .setPadding(10)).setBorder(Border.NO_BORDER).setPaddingLeft(40));
-        table1.addCell(new Cell(2,1).add(new Paragraph("Contacts").setMarginLeft(60)
+        table1.addCell(new Cell().add(new Paragraph("Experience")
                 .setFontSize(20).setFontColor(BLUE).setFont(font)
                 .setBold().setTextAlignment(TextAlignment.LEFT)).setBorder(Border.NO_BORDER));
 
-
         //icons table
-        float[] width={50 ,200};
+        float[] width={50 ,180};
 
         Table table2= new Table(width);
         table2.setMarginLeft(10);
-        table2.setMarginTop(10);
-        table2.setMarginBottom(20);
+        table2.setMarginTop(20);
+
         table2.addCell( new Cell().add(Mail).setBorder(Border.NO_BORDER));
         table2.addCell( new Cell().add(new Paragraph(email).setPaddingLeft(10).setTextAlignment(TextAlignment.LEFT)).setBorder(Border.NO_BORDER));
 
@@ -216,90 +246,80 @@ public class CV1 extends AppCompatActivity {
 
         // First table / main table
 
-        table1.addCell(new Cell().add(table2).setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell(3,1).add(new Paragraph(lorem).setTextAlignment(TextAlignment.RIGHT).setMarginTop(20)
+                .setTextAlignment(TextAlignment.JUSTIFIED).setFontSize(12).setPaddingLeft(60).setMarginRight(20))
+                .setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell().add(new Paragraph("Senior UX Designer - Present").setFontSize(12).setMarginTop(10)
+                .setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
+
+
+        table1.addCell(new Cell().add(new Paragraph("Company Name / Location").setFontSize(12).setMarginTop(10)
+        ).setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell().add(new Paragraph(lorem1).setMarginRight(50).setMarginTop(10)).setBorder(Border.NO_BORDER).setFontSize(12));
+
+
+        table1.addCell(new Cell().add(new Paragraph("Contacts")
+                .setFontSize(20).setFontColor(BLUE).setFont(font).setMarginTop(20)
+                .setBold().setTextAlignment(TextAlignment.CENTER)).setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell().add(new Paragraph("Creative User Interface Designer - 2016").setFontSize(12).setMarginTop(10)
+                .setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell(2,1).add(table2).setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell().add(new Paragraph("Company Name / Location").setFontSize(12).setMarginTop(10)
+        ).setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell().add(new Paragraph(lorem1).setMarginRight(50).setMarginTop(10)).setBorder(Border.NO_BORDER).setFontSize(12));
 
         table1.addCell(new Cell().add(Education).setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell().add(new Paragraph("Profissional Skills").setMarginTop(30)
+                .setFontSize(20).setFontColor(BLUE).setFont(font)
+                .setBold().setTextAlignment(TextAlignment.LEFT)).setBorder(Border.NO_BORDER));
 
         table1.addCell(new Cell().add(new Paragraph("2014-2016").setFontSize(12).setPaddingLeft(60).setPaddingTop(20)).setBorder(Border.NO_BORDER));
-        table1.addCell(new Cell().add(new Paragraph("Master Degree-Major Name").setFontSize(12).setPaddingLeft(60)
-                .setMarginTop(-10).setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
-        table1.addCell(new Cell().add(new Paragraph("University name here")
-                .setFontSize(12).setMarginTop(-10).setPaddingLeft(60)).setBorder(Border.NO_BORDER));
-
-        table1.addCell(new Cell().add(new Paragraph("2014-2016").setFontSize(12)
-                .setPaddingLeft(60).setPaddingTop(10)).setBorder(Border.NO_BORDER));
-        table1.addCell(new Cell().add(new Paragraph("Master Degree-Major Name")
-                .setFontSize(12).setPaddingLeft(60)
-                .setMarginTop(-10).setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
-        table1.addCell(new Cell().add(new Paragraph("University name here")
-                .setFontSize(12).setMarginTop(-10).setPaddingLeft(60)).setBorder(Border.NO_BORDER));
-
-        table1.addCell(new Cell().add(new Paragraph("2014-2016").setFontSize(12).setPaddingLeft(60).setPaddingTop(10)).setBorder(Border.NO_BORDER));
-        table1.addCell(new Cell().add(new Paragraph("Master Degree-Major Name").setFontSize(12).setPaddingLeft(60)
-                .setMarginTop(-10).setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
-        table1.addCell(new Cell().add(new Paragraph("University name here")
-                .setFontSize(12).setMarginTop(-10).setPaddingLeft(60)).setBorder(Border.NO_BORDER));
 
 
-        //second table
+        photoshop();
 
-        float [] tab3={400};
-        Table table3= new Table(tab3);
-        table3.setHeight(pdfDocument.getDefaultPageSize().getHeight());
-        table3.setMarginLeft(230);
-        table3.setMarginTop(-850);
+
+        float  pro_skills[]={100,150};
+
+         skills=new Table(pro_skills);
+        skills.setMarginTop(0);
+
+        skills.addCell(new Cell().add(new Paragraph("Photoshop").setFontSize(15)
+                .setFontColor(BLACK).setBold()).setBorder(Border.NO_BORDER));
 
 
 
-        //name table
-        float[] name={150,150};
 
-        Table Name= new Table(name);
-
-        Name.addCell(new Cell().add(new Paragraph("Areata").setFontSize(35).setBold().setFontColor(BLUE)
-                        .setTextAlignment(TextAlignment.LEFT))
+        table1.addCell(new Cell(3,1).add(skills)
                 .setBorder(Border.NO_BORDER));
-        Name.addCell(new Cell().add(new Paragraph("Base").setMarginLeft(-25).setFontSize(35)
-                ).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.LEFT));
 
-        Name.addCell(new Cell().add(new Paragraph("UI Designer").setBold()
-                .setMarginTop(-15).setFontSize(20)).setBorder(Border.NO_BORDER));
-
-        table3.addCell(new Cell().add(Name).setBorder(Border.NO_BORDER));
-
-
-        table3.addCell(new Cell().add(new Paragraph("Experience").setBold()
-                .setFontSize(20).setMarginTop(25)).setBorder(Border.NO_BORDER));
-
-        table3.addCell(new Cell().add(new Paragraph("Senior UX Designer - Present").setFontSize(12).setMarginTop(-20)
-                .setMarginTop(20).setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
-
-        table3.addCell(new Cell().add(new Paragraph("Company Name / Location").setFontSize(12).setMarginTop(-20)
-                ).setBorder(Border.NO_BORDER));
-
-
-        table3.addCell(new Cell().add(new Paragraph(lorem).setFontSize(12).setMarginTop(-20)
-        ).setBorder(Border.NO_BORDER));
-
-
-
-        table3.addCell(new Cell().add(new Paragraph("Creative User Interface Designer - 2016").setFontSize(12)
-                .setMarginTop(-20).setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
-
-        table3.addCell(new Cell().add(new Paragraph("Company Name / California USA").setFontSize(12).setMarginTop(-20)
-        ).setBorder(Border.NO_BORDER));
-
-
-        table3.addCell(new Cell().add(new Paragraph(lorem).setFontSize(12).setMarginTop(-20)
-        ).setBorder(Border.NO_BORDER));
-
-        table3.addCell(new Cell().add(new Paragraph("Profissional Skills").setBold()
-                .setFontSize(20).setMarginTop(-25)).setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell().add(new Paragraph("Master Degree-Major Name").setFontSize(12).setPaddingLeft(60)
+                .setMarginTop(-10).setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell().add(new Paragraph("University name here")
+                .setFontSize(12).setMarginTop(-10).setPaddingLeft(60)).setBorder(Border.NO_BORDER));
 
 
 
 
 
+
+
+
+
+//        table1.addCell(new Cell().add(new Paragraph("2014-2016").setFontSize(12)
+//                .setPaddingLeft(60).setPaddingTop(10)).setBorder(Border.NO_BORDER));
+//        table1.addCell(new Cell().add(new Paragraph("Master Degree-Major Name")
+//                .setFontSize(12).setPaddingLeft(60)
+//                .setMarginTop(-10).setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
+//        table1.addCell(new Cell().add(new Paragraph("University name here")
+//                .setFontSize(12).setMarginTop(-10).setPaddingLeft(60)).setBorder(Border.NO_BORDER));
+//
+//        table1.addCell(new Cell().add(new Paragraph("2014-2016").setFontSize(12).setPaddingLeft(60).setPaddingTop(10)).setBorder(Border.NO_BORDER));
+//        table1.addCell(new Cell().add(new Paragraph("Master Degree-Major Name").setFontSize(12).setPaddingLeft(60)
+//                .setMarginTop(-10).setBold().setFontColor(BLACK)).setBorder(Border.NO_BORDER));
+//        table1.addCell(new Cell().add(new Paragraph("University name here")
+//                .setFontSize(12).setMarginTop(-10).setPaddingLeft(60)).setBorder(Border.NO_BORDER));
 
 
 
@@ -309,8 +329,8 @@ public class CV1 extends AppCompatActivity {
         PdfPage pdfPage = pdfDocument.addNewPage();
         PdfCanvas canvas = new PdfCanvas(pdfPage);
 
-        canvas.roundRectangle(29,500,25,25,10);
-        canvas.setStrokeColor(new DeviceRgb(67,84,90));
+//        canvas.roundRectangle(29,500,25,25,10);
+//        canvas.setStrokeColor(new DeviceRgb(67,84,90));
 //        canvas.setStrokeColor(new DeviceRgb());
 //        canvas.fill();
 //
@@ -325,7 +345,7 @@ public class CV1 extends AppCompatActivity {
 
 
         document.add(table1);
-        document.add(table3);
+//        document.add(table3);
 
 
 
@@ -335,7 +355,46 @@ public class CV1 extends AppCompatActivity {
 
     }
 
+    private void photoshop() {
 
+        int num=60;
+        int result=60*5/100;
+        for (int i =result; i < 5; i++) {
+
+            if (result<i) {
+
+                Drawable drawable= getDrawable(R.drawable.rate);
+                Bitmap   bitmap=((BitmapDrawable)drawable).getBitmap();
+
+                ByteArrayOutputStream outputStream1=new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream1);
+
+                byte[] bitmapdata= outputStream1.toByteArray();
+
+                ImageData imageData= ImageDataFactory.create(bitmapdata);
+
+                rate=new Image(imageData);
+
+                rate.setWidth(20);
+                rate.setHeight(20);
+
+                skills.addCell(new Cell().add(Star).setBorder(Border.NO_BORDER)
+                        .add(Star).setMarginTop(-10).setPaddingLeft(20)
+                        .setBorder(Border.NO_BORDER));
+
+
+            }else{
+
+
+                Ratings();
+
+                return;
+
+            }
+
+        }
+
+    }
 
 
     private void RequestPermission() {
@@ -490,6 +549,25 @@ public class CV1 extends AppCompatActivity {
         Book=new Image(imageData);
         Book.setWidth(20);
         Book.setHeight(20);
+
+
+    }
+
+    private void Ratings(){
+
+        Drawable drawable= getDrawable(star);
+        Bitmap   bitmap=((BitmapDrawable)drawable).getBitmap();
+
+        ByteArrayOutputStream outputStream1=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream1);
+
+        byte[] bitmapdata= outputStream1.toByteArray();
+
+        ImageData imageData= ImageDataFactory.create(bitmapdata);
+
+        Star=new Image(imageData);
+        Star.setWidth(20);
+        Star.setHeight(20);
 
 
     }
