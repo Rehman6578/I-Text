@@ -262,8 +262,17 @@ public class CV2 extends AppCompatActivity {
         table1.addCell(new Cell(1,2).add(new Paragraph("Name of your University").setMarginTop(-5)
                 .setMarginLeft(40).setFontColor(WHITE)).setBorder(Border.NO_BORDER));
 
-        table1.addCell(new Cell(2,1).add(new Paragraph("2005-2006").setMarginTop(-5)
+        table1.addCell(new Cell(1,2).add(new Paragraph("2005-2006").setMarginTop(-5)
                 .setMarginLeft(40).setFontColor(WHITE)).setBorder(Border.NO_BORDER));
+
+
+        table1.addCell(new Cell().add(new Paragraph("Contact".toUpperCase(Locale.ROOT))
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(30).setMarginLeft(30)
+                        .setFontSize(14).setFontColor(ColorConstants.WHITE).setBold())
+                .setBorder(Border.NO_BORDER));
+
+
+
 
 
         //work experience table
@@ -288,16 +297,29 @@ public class CV2 extends AppCompatActivity {
 
         t.addCell(new Cell().add(new Paragraph()).setBorder(Border.NO_BORDER));
         t.addCell(new Cell(3,1).add(new Paragraph(lorem)
-                        .setTextAlignment(TextAlignment.LEFT).setMarginRight(30).setMarginTop(20))
+                        .setTextAlignment(TextAlignment.LEFT).setMarginRight(30).setMarginTop(10))
                 .setFontSize(12).setFontColor(BLACK).setBorder(Border.NO_BORDER));
 
 
           ///////////////////////////**************************////////////////////////////////
 
 
-        table1.addCell(new Cell().add(new Paragraph("Contact".toUpperCase(Locale.ROOT))
-                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(30).setMarginLeft(30)
-                        .setFontSize(14).setFontColor(ColorConstants.WHITE).setBold())
+        table1.addCell(new Cell(4,1).add(t).setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell().add(new Paragraph("Address".toUpperCase(Locale.ROOT))
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(10).setMarginLeft(40)
+                        .setFontColor(WHITE).setBold().setFontSize(12))
+                .setBorder(Border.NO_BORDER));
+
+
+        table1.addCell(new Cell().add(new Paragraph("Your Street Address")
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(-5).setMarginLeft(40)
+                        .setFontColor(WHITE))
+                .setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell().add(new Paragraph("SS sterrt city/ Zip code - 456")
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(-5).setMarginLeft(40)
+                        .setFontColor(WHITE))
                 .setBorder(Border.NO_BORDER));
 
 
