@@ -504,7 +504,7 @@ public class CV3 extends AppCompatActivity {
         PdfPage pdfPage = pdfDocument.addNewPage();
         PdfCanvas canvas = new PdfCanvas(pdfPage);
 
-        canvas.rectangle(0,0,180,580);
+        canvas.rectangle(0,0,180,585);
         canvas.setFillColor(PINK);
         canvas.fill();
 
