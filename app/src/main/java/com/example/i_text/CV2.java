@@ -81,7 +81,8 @@ public class CV2 extends AppCompatActivity {
 
 
         lorem1="Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
-                " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ";
+                " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s," +
+                "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, ";
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads()
@@ -185,10 +186,24 @@ public class CV2 extends AppCompatActivity {
         canvas.setFillColor(new DeviceRgb(0,47,108));
         canvas.fill();
 
+        // contact rectangle
+        canvas.rectangle(0,425,200,25);
+        canvas.setFillColor(new DeviceRgb(0,47,108));
+        canvas.fill();
+
+        canvas.rectangle(0,425,10,25);
+        canvas.setFillColor(ORANGE);
+        canvas.fill();
+
+
+
         // Yellow backround small rectangles
         canvas.rectangle(200,690,10,120);
         canvas.setFillColor(ORANGE);
         canvas.fill();
+
+        // contact background color
+
 
         canvas.rectangle(0,635,10,25);
         canvas.setFillColor(ORANGE);
@@ -319,7 +334,7 @@ public class CV2 extends AppCompatActivity {
                         .setTextAlignment(TextAlignment.LEFT).setMarginRight(30).setMarginTop(5))
                 .setFontSize(12).setFontColor(BLACK).setBorder(Border.NO_BORDER));
 
-        /////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////
 
         t1.addCell(new Cell().add(new Paragraph("2012-2014").setMarginTop(10).setBold()
                 .setFontSize(10).setFontColor(BLACK)).setBorder(Border.NO_BORDER));
@@ -338,7 +353,6 @@ public class CV2 extends AppCompatActivity {
         t1.addCell(new Cell().add(new Paragraph(lorem).setFontSize(10)
                         .setTextAlignment(TextAlignment.LEFT).setMarginRight(30).setMarginTop(5))
                 .setFontSize(12).setFontColor(BLACK).setBorder(Border.NO_BORDER));
-
 
 
         ///////////////////////////**************************/////////////////////////////
@@ -397,7 +411,7 @@ public class CV2 extends AppCompatActivity {
 
         table1.addCell(new Cell().add(new Paragraph("Reference".toUpperCase(Locale.ROOT))
                         .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(30)
-                        .setFontSize(14).setFontColor(ColorConstants.WHITE).setBold())
+                        .setFontSize(14).setFontColor(WHITE).setBold())
                 .setBorder(Border.NO_BORDER));
 
         table1.addCell(new Cell().add(new Paragraph("Software Skills".toUpperCase(Locale.ROOT))
@@ -453,19 +467,6 @@ public class CV2 extends AppCompatActivity {
                         .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(40)
                         .setFontColor(WHITE))
                 .setBorder(Border.NO_BORDER));
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         document.add(table1);
