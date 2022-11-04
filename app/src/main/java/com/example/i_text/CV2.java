@@ -66,7 +66,8 @@ public class CV2 extends AppCompatActivity {
     int PERMISSION_REQUEST_CODE = 2296;
     String lorem, lorem1;
 
-    String email, phone, address;
+    Table t1,t2,t3;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,22 +91,21 @@ public class CV2 extends AppCompatActivity {
                 .build());
 
 
+        if(ContextCompat.checkSelfPermission(CV2.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)==
+                PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(CV2.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+
+        }
+        else {
+            RequestPermission();
+        }
+
+
 
         save.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
-
-                if(ContextCompat.checkSelfPermission(CV2.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)==
-                        PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(CV2.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-
-                }
-                else {
-                    RequestPermission();
-                }
-
 
         try {
             pdffile();
@@ -239,7 +239,7 @@ public class CV2 extends AppCompatActivity {
                 .setBorder(Border.NO_BORDER));
 
         table1.addCell(new Cell(3,1).add(new Paragraph(lorem1).setMarginTop(10).setMarginLeft(40)
-                        .setFontColor(BLACK)
+                        .setFontColor(BLACK).setFontSize(10)
                 .setTextAlignment(TextAlignment.JUSTIFIED)).setBorder(Border.NO_BORDER));
 
         table1.addCell(new Cell().add(new Paragraph("Name of your University").setMarginTop(-5)
@@ -280,47 +280,190 @@ public class CV2 extends AppCompatActivity {
 
         float [] wrkEx={100,300};
 
-        Table t = new Table(wrkEx);
-        t.setMarginLeft(30);
+         t1 = new Table(wrkEx);
+        t1.setMarginLeft(30);
 
-        t.addCell(new Cell().add(new Paragraph("2012-2014").setBold()
+        t1.addCell(new Cell().add(new Paragraph("2012-2014").setBold()
                 .setFontSize(10).setFontColor(BLACK)).setBorder(Border.NO_BORDER));
 
-        t.addCell(new Cell().add(new Paragraph("Job position here".toUpperCase(Locale.ROOT)
+        t1.addCell(new Cell().add(new Paragraph("Job position here".toUpperCase(Locale.ROOT)
         ).setFontSize(10).setFontColor(BLACK)).setBold().setBorder(Border.NO_BORDER));
 
-        t.addCell(new Cell().add(new Paragraph()).setBorder(Border.NO_BORDER));
+        t1.addCell(new Cell().add(new Paragraph()).setBorder(Border.NO_BORDER));
 
-        t.addCell(new Cell().add(new Paragraph("Company name / California USA")
+        t1.addCell(new Cell().add(new Paragraph("Company name / California USA")
                         .setTextAlignment(TextAlignment.LEFT).setMarginRight(30))
                 .setFontSize(12).setBold().setFontColor(BLACK).setBorder(Border.NO_BORDER));
 
-        t.addCell(new Cell().add(new Paragraph()).setBorder(Border.NO_BORDER));
-        t.addCell(new Cell(3,1).add(new Paragraph(lorem)
-                        .setTextAlignment(TextAlignment.LEFT).setMarginRight(30).setMarginTop(10))
+        t1.addCell(new Cell().add(new Paragraph()).setBorder(Border.NO_BORDER));
+        t1.addCell(new Cell().add(new Paragraph(lorem).setFontSize(10)
+                        .setTextAlignment(TextAlignment.LEFT).setMarginRight(30).setMarginTop(5))
+                .setFontSize(12).setFontColor(BLACK).setBorder(Border.NO_BORDER));
+
+        //////////////////////////////////////////////////////////////////////////
+
+        t1.addCell(new Cell().add(new Paragraph("2012-2014").setMarginTop(10).setBold()
+                .setFontSize(10).setFontColor(BLACK)).setBorder(Border.NO_BORDER));
+
+        t1.addCell(new Cell().add(new Paragraph("Job position here".toUpperCase(Locale.ROOT)
+        ).setMarginTop(10).setFontSize(10).setFontColor(BLACK)).setBold().setBorder(Border.NO_BORDER));
+
+        t1.addCell(new Cell().add(new Paragraph()).setBorder(Border.NO_BORDER));
+
+        t1.addCell(new Cell().add(new Paragraph("Company name / California USA")
+                        .setTextAlignment(TextAlignment.LEFT).setMarginRight(30))
+                .setFontSize(12).setBold().setFontColor(BLACK).setBorder(Border.NO_BORDER));
+
+        t1.addCell(new Cell().add(new Paragraph()).setBorder(Border.NO_BORDER));
+        t1.addCell(new Cell().add(new Paragraph(lorem).setFontSize(10)
+                        .setTextAlignment(TextAlignment.LEFT).setMarginRight(30).setMarginTop(5))
+                .setFontSize(12).setFontColor(BLACK).setBorder(Border.NO_BORDER));
+
+        /////////////////////////////////////////////////////////////////////////
+
+        t1.addCell(new Cell().add(new Paragraph("2012-2014").setMarginTop(10).setBold()
+                .setFontSize(10).setFontColor(BLACK)).setBorder(Border.NO_BORDER));
+
+        t1.addCell(new Cell().add(new Paragraph("Job position here".toUpperCase(Locale.ROOT)
+        ).setMarginTop(10).setFontSize(10).setFontColor(BLACK)).setBold().setBorder(Border.NO_BORDER));
+
+        t1.addCell(new Cell().add(new Paragraph()).setBorder(Border.NO_BORDER));
+
+        t1.addCell(new Cell().add(new Paragraph("Company name / California USA")
+                        .setTextAlignment(TextAlignment.LEFT).setMarginRight(30))
+                .setFontSize(12).setBold().setFontColor(BLACK).setBorder(Border.NO_BORDER));
+
+        t1.addCell(new Cell().add(new Paragraph()).setBorder(Border.NO_BORDER));
+
+        t1.addCell(new Cell().add(new Paragraph(lorem).setFontSize(10)
+                        .setTextAlignment(TextAlignment.LEFT).setMarginRight(30).setMarginTop(5))
                 .setFontSize(12).setFontColor(BLACK).setBorder(Border.NO_BORDER));
 
 
-          ///////////////////////////**************************////////////////////////////////
+
+        ///////////////////////////**************************/////////////////////////////
 
 
-        table1.addCell(new Cell(4,1).add(t).setBorder(Border.NO_BORDER));
+        table1.addCell(new Cell(13,1).add(t1).setBorder(Border.NO_BORDER));
 
         table1.addCell(new Cell().add(new Paragraph("Address".toUpperCase(Locale.ROOT))
                         .setTextAlignment(TextAlignment.LEFT).setMarginTop(10).setMarginLeft(40)
                         .setFontColor(WHITE).setBold().setFontSize(12))
                 .setBorder(Border.NO_BORDER));
 
-
-        table1.addCell(new Cell().add(new Paragraph("Your Street Address")
+        table1.addCell(new Cell().add(new Paragraph("Your Street Address").setFontSize(10)
                         .setTextAlignment(TextAlignment.LEFT).setMarginTop(-5).setMarginLeft(40)
                         .setFontColor(WHITE))
                 .setBorder(Border.NO_BORDER));
 
-        table1.addCell(new Cell().add(new Paragraph("SS sterrt city/ Zip code - 456")
-                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(-5).setMarginLeft(40)
+        table1.addCell(new Cell(2,1).add(new Paragraph("SS sterrt city/ Zip code - 456").setFontSize(10)
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(40)
                         .setFontColor(WHITE))
                 .setBorder(Border.NO_BORDER));
+
+
+        table1.addCell(new Cell().add(new Paragraph("Phone".toUpperCase(Locale.ROOT))
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(10).setMarginLeft(40)
+                        .setFontColor(WHITE).setBold().setFontSize(12))
+                .setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell().add(new Paragraph("09876543321".toUpperCase(Locale.ROOT)).setFontSize(10)
+                        .setTextAlignment(TextAlignment.LEFT).setMarginLeft(40)
+                        .setFontColor(WHITE))
+                .setBorder(Border.NO_BORDER));
+
+
+        table1.addCell(new Cell().add(new Paragraph("Email".toUpperCase(Locale.ROOT))
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(10).setMarginLeft(40)
+                        .setFontColor(WHITE).setBold().setFontSize(12))
+                .setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell(2,1).add(new Paragraph("flkjaf@gmail.com").setFontSize(10)
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(40)
+                        .setFontColor(WHITE))
+                .setBorder(Border.NO_BORDER));
+//
+
+        table1.addCell(new Cell().add(new Paragraph("Website".toUpperCase(Locale.ROOT))
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(10).setMarginLeft(40)
+                        .setFontColor(WHITE).setBold().setFontSize(12))
+                .setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell(2,1).add(new Paragraph("WEbsite222.com").setFontSize(10)
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(40)
+                        .setFontColor(WHITE))
+                .setBorder(Border.NO_BORDER));
+
+
+        table1.addCell(new Cell().add(new Paragraph("Reference".toUpperCase(Locale.ROOT))
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(30)
+                        .setFontSize(14).setFontColor(ColorConstants.WHITE).setBold())
+                .setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell().add(new Paragraph("Software Skills".toUpperCase(Locale.ROOT))
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(20).setMarginLeft(30)
+                        .setFontSize(14).setFontColor(BLACK).setBold())
+                .setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell().add(new Paragraph("Sara Taylore")
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(40)
+                        .setFontColor(WHITE).setBold().setFontSize(12))
+                .setBorder(Border.NO_BORDER));
+
+
+        float width[]={150,150};
+        Table skills = new Table(width);
+        skills.setMarginLeft(60);
+        skills.setMarginTop(20);
+
+        skills.addCell(new Cell().add(new Paragraph("Adobe Photoshop").setFontSize(10).setFontColor(BLACK)).setBold().setBorder(Border.NO_BORDER));
+        skills.addCell(new Cell().add(new Paragraph("Microsoft Word").setFontSize(10).setFontColor(BLACK)).setBold().setBorder(Border.NO_BORDER));
+
+        skills.addCell(new Cell().add(new Paragraph("Adobe Photoshop").setFontSize(10).setFontColor(BLACK)).setBold().setBorder(Border.NO_BORDER));
+        skills.addCell(new Cell().add(new Paragraph("Microsoft Word").setFontSize(10).setFontColor(BLACK)).setBold().setBorder(Border.NO_BORDER));
+
+        skills.addCell(new Cell().add(new Paragraph("Adobe Photoshop").setFontSize(10).setFontColor(BLACK)).setBold().setBorder(Border.NO_BORDER));
+        skills.addCell(new Cell().add(new Paragraph("Microsoft Word").setFontSize(10).setFontColor(BLACK)).setBold().setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell(5,1).add(skills).setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell().add(new Paragraph("Directory Company name ").setFontSize(10)
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(40)
+                        .setFontColor(WHITE))
+                .setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell().add(new Paragraph("T: +1232432423").setFontSize(10)
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(40)
+                        .setFontColor(WHITE))
+                .setBorder(Border.NO_BORDER));
+
+        // second reference
+
+        table1.addCell(new Cell().add(new Paragraph("Micke Inderson")
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(40)
+                        .setFontColor(WHITE).setBold().setFontSize(12))
+                .setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell().add(new Paragraph("Directory Company name ").setFontSize(10)
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(40)
+                        .setFontColor(WHITE))
+                .setBorder(Border.NO_BORDER));
+
+        table1.addCell(new Cell().add(new Paragraph("T: +1232432423").setFontSize(10)
+                        .setTextAlignment(TextAlignment.LEFT).setMarginTop(0).setMarginLeft(40)
+                        .setFontColor(WHITE))
+                .setBorder(Border.NO_BORDER));
+
+
+
+
+
+
+
+
+
+
+
 
 
 
